@@ -37,6 +37,7 @@ dist/
 dist-ssr/
 .vite/
 *.local
+*.tsbuildinfo
 
 # --- Env & secrets ---
 .env
