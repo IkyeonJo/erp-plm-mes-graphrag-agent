@@ -1,5 +1,9 @@
 # ERP/PLM/MES GraphRAG Agent
 
+<p align="center">
+  <img src="./logo.png" alt="ERP/PLM/MES GraphRAG Agent" width="480" />
+</p>
+
 > A manufacturing GraphRAG + LangGraph Agent PoC for integrated ERP/PLM/MES data search, analysis, and evidence-based response generation.
 
 본 프로젝트는 제조업 ERP/PLM/MES 데이터를 통합 조회·분석하기 위한 **GraphRAG + Agentic AI 챗봇 PoC**입니다.
