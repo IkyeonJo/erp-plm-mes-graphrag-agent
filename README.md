@@ -213,9 +213,9 @@ npm run dev
 
 ---
 
-## 10. PL Documentation
+## 10. Documentation
 
-이 프로젝트는 PL 포트폴리오이므로 코드만큼 문서를 중요시한다.
+포트폴리오의 주요 내용을 문서로 요약한 내용입니다.
 
 | 문서 | 내용 |
 |---|---|
@@ -226,8 +226,7 @@ npm run dev
 | [`docs/05_data_model_erp_plm_mes.md`](docs/05_data_model_erp_plm_mes.md) | ERP/PLM/MES 테이블·컬럼·키 매핑 |
 | [`docs/06_knowledge_graph_schema.md`](docs/06_knowledge_graph_schema.md) | Neo4j 노드/관계/Cypher |
 | [`docs/07_security_and_permission.md`](docs/07_security_and_permission.md) | 읽기 전용, 마스킹, audit log, HITL |
-| [`docs/08_phase_plan.md`](docs/08_phase_plan.md) | 0~12개월 단계별 계획 |
-| [`docs/09_customer_meeting_checklist.md`](docs/09_customer_meeting_checklist.md) | 고객 미팅 사전 확인 질문 |
+
 
 ---
 
@@ -243,20 +242,6 @@ npm run dev
 6. Agent trace와 tool call log 저장
 7. Human-in-the-loop 승인 정책 문서화
 8. `.env` 파일 커밋 금지, API Key는 placeholder만 제공
-
----
-
-## 12. Roadmap
-
-| Phase | 기간 | 목표 |
-|---|---|---|
-| Phase 1 | 0~6개월 | Gemini API 기반 챗봇 PoC, ERP/PLM/MES read-only 통합 조회, GraphRAG MVP |
-| Phase 2 | 7~12개월 | 자체 오픈소스 LLM(vLLM/Ollama/TGI) 통합, Supervisor Agent 상주 (OpenClaw 가정), 업무 자동화 후보 발굴 |
-| Phase 3 | 13개월~ | HITL 승인 workflow, 알림 연동, 스케줄 기반 이상 감지, 운영 고도화 |
-
-> **OpenClaw**: 본 MVP에서는 직접 통합하지 않지만, Phase 2에서 LangGraph workflow를 장기 실행 Agent Runtime에 연결하는 구조를 상정한다. Read-only, least privilege, audit log, HITL 승인을 전제로 한다.
-
----
 
 ## License
 
