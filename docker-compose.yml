@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    env_file:
+      - .env
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+      - NEO4J_URI=bolt://neo4j:7687
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+      - ./ontology:/ontology
+    depends_on:
+      - neo4j
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio-frontend
+    env_file:
+      - .env
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    command: npm run dev -- --host 0.0.0.0
+
+  neo4j:
+    image: neo4j:5.20-community
+    container_name: portfolio-neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/neo4j-password
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - ./graph/cypher:/var/lib/neo4j/import/cypher
+
+volumes:
+  neo4j_data:
+  neo4j_logs:

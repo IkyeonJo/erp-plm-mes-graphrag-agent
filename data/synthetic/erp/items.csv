@@ -1,0 +1,9 @@
+item_id,item_name,item_type,unit,standard_cost,supplier_id
+PROD-A,Smart Sensor A,PRODUCT,EA,120000.0,
+PROD-B,Smart Sensor B,PRODUCT,EA,95000.0,
+P-101,Main PCB,PART,EA,18000.0,S-01
+P-203,Connector Module,PART,EA,4200.0,S-02
+P-204,Connector Module v2,PART,EA,4500.0,S-07
+P-301,Sensor Chip,PART,EA,26000.0,S-09
+P-501,External Case,PART,EA,8000.0,S-03
+P-502,External Case v2,PART,EA,8500.0,S-03

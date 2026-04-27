@@ -1,0 +1,4 @@
+document_id,product_id,doc_type,revision,approved_by,approved_date
+DOC-001,PROD-A,DRAWING,rev.4,design.team,2025-12-15
+DOC-002,PROD-A,SPEC,rev.4,design.team,2025-12-20
+DOC-003,PROD-B,DRAWING,rev.2,design.team,2025-11-10

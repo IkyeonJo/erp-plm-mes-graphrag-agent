@@ -1,0 +1,3 @@
+ecr_id,product_id,requested_by,request_date,reason,status
+ECR-2026-007,PROD-A,quality.team,2026-02-10,P-203 공급사 품질 이슈,APPROVED
+ECR-2026-011,PROD-A,design.team,2026-03-15,외장 케이스 마감 변경,APPROVED

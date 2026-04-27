@@ -1,0 +1,139 @@
+@prefix :     <http://example.org/manufacturing#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================
+# Manufacturing Ontology (minimal)
+# - 본 ontology는 PoC용 최소 샘플이다.
+# - 실제 운영에서는 표준 (ISA-95, OAGIS, ISO 10303 STEP) 매핑을 추천.
+# =============================================================
+
+<http://example.org/manufacturing> a owl:Ontology ;
+  rdfs:label "Manufacturing Ontology (PoC)" ;
+  rdfs:comment "ERP/PLM/MES 통합 GraphRAG PoC를 위한 최소 온톨로지." .
+
+# --- Classes ---
+:ManufacturingEntity a owl:Class ;
+  rdfs:label "Manufacturing Entity" .
+
+:Product a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Part a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Supplier a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Process a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Equipment a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Defect a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:EngineeringChange a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+:Lot a owl:Class ;
+  rdfs:subClassOf :ManufacturingEntity .
+
+# --- Object Properties ---
+:hasPart a owl:ObjectProperty ;
+  rdfs:domain :Product ;
+  rdfs:range :Part .
+
+:suppliedBy a owl:ObjectProperty ;
+  rdfs:domain :Part ;
+  rdfs:range :Supplier .
+
+:producedIn a owl:ObjectProperty ;
+  rdfs:domain :Product ;
+  rdfs:range :Process .
+
+:usesEquipment a owl:ObjectProperty ;
+  rdfs:domain :Process ;
+  rdfs:range :Equipment .
+
+:hasDefect a owl:ObjectProperty ;
+  rdfs:domain :Lot ;
+  rdfs:range :Defect .
+
+:producedProduct a owl:ObjectProperty ;
+  rdfs:domain :Lot ;
+  rdfs:range :Product .
+
+:changedBy a owl:ObjectProperty ;
+  rdfs:domain :Product ;
+  rdfs:range :EngineeringChange .
+
+:changesPart a owl:ObjectProperty ;
+  rdfs:domain :EngineeringChange ;
+  rdfs:range :Part .
+
+# --- Datatype Properties ---
+:productId   a owl:DatatypeProperty ; rdfs:domain :Product   ; rdfs:range xsd:string .
+:partId      a owl:DatatypeProperty ; rdfs:domain :Part      ; rdfs:range xsd:string .
+:supplierId  a owl:DatatypeProperty ; rdfs:domain :Supplier  ; rdfs:range xsd:string .
+:lotId       a owl:DatatypeProperty ; rdfs:domain :Lot       ; rdfs:range xsd:string .
+:defectType  a owl:DatatypeProperty ; rdfs:domain :Defect    ; rdfs:range xsd:string .
+:effectiveDate a owl:DatatypeProperty ; rdfs:domain :EngineeringChange ; rdfs:range xsd:date .
+
+# =============================================================
+# Sample Individuals (Use Case 1 시나리오와 정합)
+# =============================================================
+
+:PROD-A a :Product ;
+  :productId "PROD-A" ;
+  rdfs:label "Smart Sensor A" ;
+  :hasPart :P-101, :P-204, :P-301, :P-501 ;
+  :producedIn :PR-03 ;
+  :changedBy :ECO-2026-009, :ECO-2026-014 .
+
+:PROD-B a :Product ;
+  :productId "PROD-B" ;
+  rdfs:label "Smart Sensor B" ;
+  :hasPart :P-101, :P-204, :P-301, :P-502 .
+
+:P-101 a :Part ; :partId "P-101" ; :suppliedBy :S-01 .
+:P-203 a :Part ; :partId "P-203" ; :suppliedBy :S-02 .
+:P-204 a :Part ; :partId "P-204" ; :suppliedBy :S-07 .
+:P-301 a :Part ; :partId "P-301" ; :suppliedBy :S-09 .
+:P-501 a :Part ; :partId "P-501" ; :suppliedBy :S-03 .
+:P-502 a :Part ; :partId "P-502" ; :suppliedBy :S-03 .
+
+:S-01 a :Supplier ; :supplierId "S-01" ; rdfs:label "Nova Components" .
+:S-02 a :Supplier ; :supplierId "S-02" ; rdfs:label "Korea Parts Co." .
+:S-03 a :Supplier ; :supplierId "S-03" ; rdfs:label "Asia Materials" .
+:S-07 a :Supplier ; :supplierId "S-07" ; rdfs:label "Vietnam Precision" .
+:S-09 a :Supplier ; :supplierId "S-09" ; rdfs:label "Global Solder Inc" .
+
+:PR-01 a :Process ; rdfs:label "SMT Mounting" .
+:PR-02 a :Process ; rdfs:label "Wave Soldering" .
+:PR-03 a :Process ; rdfs:label "Connector Assembly" ; :usesEquipment :EQ-11 .
+:PR-04 a :Process ; rdfs:label "Final Inspection" .
+
+:EQ-01 a :Equipment ; rdfs:label "SMT Line A" .
+:EQ-02 a :Equipment ; rdfs:label "Solder Bath A" .
+:EQ-11 a :Equipment ; rdfs:label "Connector Press 11" .
+
+:LOT-L24041 a :Lot ;
+  :lotId "LOT-L24041" ;
+  :producedProduct :PROD-A ;
+  :hasDefect :DEF-001 .
+
+:DEF-001 a :Defect ; :defectType "Solder Crack" .
+
+:ECO-2026-009 a :EngineeringChange ;
+  rdfs:label "Connector supplier S-02 → S-07 (P-203 → P-204)" ;
+  :effectiveDate "2026-03-01"^^xsd:date ;
+  :changesPart :P-204 .
+
+:ECO-2026-014 a :EngineeringChange ;
+  rdfs:label "External case finishing change" ;
+  :effectiveDate "2026-04-01"^^xsd:date ;
+  :changesPart :P-501 .

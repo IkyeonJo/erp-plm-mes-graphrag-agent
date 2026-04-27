@@ -1,0 +1,43 @@
+# =============================================================
+# sample_queries.sparql — manufacturing.ttl 대상 샘플 SPARQL
+#   - 본 PoC는 SELECT 쿼리만 허용한다.
+#   - 모든 IRI는 := http://example.org/manufacturing#
+# =============================================================
+
+PREFIX :    <http://example.org/manufacturing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# 1. 제품의 부품 목록
+SELECT ?product ?part WHERE {
+  ?product a :Product .
+  ?product :hasPart ?part .
+}
+
+# 2. 특정 부품(P-204)을 사용하는 제품
+SELECT ?product WHERE {
+  ?product a :Product .
+  ?product :hasPart ?part .
+  ?part :partId "P-204" .
+}
+
+# 3. 제품과 관련된 불량
+SELECT ?product ?defect WHERE {
+  ?lot :producedProduct ?product .
+  ?lot :hasDefect ?defect .
+}
+
+# 4. 공급사가 납품한 부품을 사용하는 제품 (Supplier impact)
+SELECT ?supplier ?part ?product WHERE {
+  ?part :suppliedBy ?supplier .
+  ?supplier :supplierId "S-07" .
+  ?product :hasPart ?part .
+}
+
+# 5. 최근 효력 발생한 ECO와 변경 부품
+SELECT ?eco ?part ?date WHERE {
+  ?eco a :EngineeringChange ;
+       :changesPart ?part ;
+       :effectiveDate ?date .
+  FILTER (?date >= "2026-03-01"^^<http://www.w3.org/2001/XMLSchema#date>)
+}
+ORDER BY DESC(?date)

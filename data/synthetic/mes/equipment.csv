@@ -1,0 +1,6 @@
+equipment_id,equipment_name,equipment_type,line_id
+EQ-01,SMT Line A,SMT,L1
+EQ-02,Solder Bath A,SOLDER,L1
+EQ-11,Connector Press 11,ASSY,L2
+EQ-12,Connector Press 12,ASSY,L2
+EQ-21,AOI Tester,INSPECT,L3

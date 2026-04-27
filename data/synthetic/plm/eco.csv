@@ -1,0 +1,4 @@
+eco_id,product_id,changed_part_id,change_type,reason,approved_date,effective_date,status
+ECO-2026-009,PROD-A,P-203,SUPPLIER_CHANGE,공급사 S-02 → S-07 (P-203 → P-204),2026-02-25,2026-03-01,EFFECTIVE
+ECO-2026-014,PROD-A,P-501,DESIGN_CHANGE,외장 케이스 마감 변경,2026-03-20,2026-04-01,EFFECTIVE
+ECO-2026-018,PROD-B,P-502,DESIGN_CHANGE,외장 케이스 v2 적용,2026-03-22,2026-04-05,EFFECTIVE

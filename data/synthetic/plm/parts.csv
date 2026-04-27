@@ -1,0 +1,7 @@
+part_id,part_name,part_type,supplier_id
+P-101,Main PCB,PART,S-01
+P-203,Connector Module,PART,S-02
+P-204,Connector Module v2,PART,S-07
+P-301,Sensor Chip,PART,S-09
+P-501,External Case,PART,S-03
+P-502,External Case v2,PART,S-03

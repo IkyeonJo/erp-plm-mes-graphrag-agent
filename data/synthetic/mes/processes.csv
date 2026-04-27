@@ -1,0 +1,5 @@
+process_id,process_name,sequence
+PR-01,SMT Mounting,1
+PR-02,Wave Soldering,2
+PR-03,Connector Assembly,3
+PR-04,Final Inspection,4
